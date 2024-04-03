@@ -1,0 +1,60 @@
+version: '3'
+services:
+  ### Posgres database for Email Service
+  db-email:
+    container_name: db-email
+    image: postgres:16.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ms_email
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5431:5431
+    expose:
+      - 5431
+    command: -p 5431
+
+
+  ### Posgres database for userRegistration service
+  db-userRegistration:
+    container_name: db-userResgistration
+    image: postgres:16.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ms_userResgistration
+      POSTGRES_USER: postrgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    command: -p 5432
+  ### Posgres database for profileManagement service
+  db-profileManagement:
+    container_name: db-profileManagement
+    image: postgres:16.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ms_profileManagement
+      POSTGRES_USER: postrgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5433:5433
+    expose:
+      - 5433
+    command: -p 5433
+  ### Posgres database for authentication service
+  db-authentication:
+    container_name: db-authentication
+    image: postgres:16.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ms_authentication
+      POSTGRES_USER: postrgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5434:5434
+    expose:
+      - 5434
+    command: -p 5434
