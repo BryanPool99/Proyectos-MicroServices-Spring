@@ -1,5 +1,6 @@
 package com.bryan.UserRegistration_Service.services.impl;
 
+import com.bryan.UserRegistration_Service.exceptions.EmailAlreadyExistsException;
 import com.bryan.UserRegistration_Service.model.dto.UserRequest;
 import com.bryan.UserRegistration_Service.model.dto.UserResponse;
 import com.bryan.UserRegistration_Service.model.entities.User;
@@ -39,8 +40,8 @@ public class UserServiceImpl implements IUserService {
     */
     @Override
     public User saveUser(UserRequest userRequest) {
-        if(userRepository.existsByEmail(userRequest.getEmail())){
-            throw new IllegalArgumentException("El correo electrónico ya está registrado");
+        if(userRepository.existsByEmail(userRequest.getEmail())) {
+            throw new EmailAlreadyExistsException("El correo electrónico ya está registrado");
         }
        var newUser=User.builder()
                .name(userRequest.getName())
