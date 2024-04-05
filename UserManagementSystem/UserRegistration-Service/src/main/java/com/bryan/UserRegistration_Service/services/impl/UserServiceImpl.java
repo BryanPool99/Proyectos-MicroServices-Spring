@@ -1,5 +1,7 @@
 package com.bryan.UserRegistration_Service.services.impl;
 
+import com.bryan.Email_Service.model.dto.EmailRequest;
+import com.bryan.UserRegistration_Service.client.EmailServiceClient;
 import com.bryan.UserRegistration_Service.exceptions.EmailAlreadyExistsException;
 import com.bryan.UserRegistration_Service.model.dto.UserRequest;
 import com.bryan.UserRegistration_Service.model.dto.UserResponse;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmailServiceClient emailServiceClient;
     @Override
     public List<UserResponse> getAllUser() {
         var users=userRepository.findAll();
@@ -49,6 +53,12 @@ public class UserServiceImpl implements IUserService {
                .email(userRequest.getEmail())
                .password(userRequest.getPassword())
                .build();
+        EmailRequest emailRequest = new EmailRequest();
+        emailRequest.setTo(userRequest.getEmail());
+        emailRequest.setSubject("Confirmación de registro");
+        emailRequest.setBody("¡Gracias por registrarte en nuestra aplicación!");
+
+        emailServiceClient.sendEmail(emailRequest);
         log.info("User added: {}", newUser);
        return userRepository.save(newUser);
     }
