@@ -1,5 +1,6 @@
 package com.bryan.UserRegistration_Service.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +21,6 @@ public class User {
     private String lastname;
     @Column(unique = true) // Esto hace que el campo sea único
     private String email;
+    @JsonIgnore
     private String password;
 }
